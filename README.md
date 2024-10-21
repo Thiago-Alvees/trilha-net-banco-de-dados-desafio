@@ -89,3 +89,112 @@ Você deverá criar diversas consultas, com o objetivo de retornar os dados a se
 ## 12 - Buscar o nome do filme e os atores, trazendo o PrimeiroNome, UltimoNome e seu Papel
 
 ![Exercicio 12](Imagens/12.png)
+
+# Aqui você encontrará a explicação de cada script.
+
+'SELECT nome, ano FROM filmes;'
+
+Aqui, SELECT é usado para especificar as colunas que você deseja obter (nome e ano), e FROM é usado para indicar a tabela de onde esses dados devem ser extraídos (neste caso, a tabela filmes).
+
+'SELECT nome, ano FROM filmes
+ORDER BY ano ASC;'
+
+SELECT: Especifica as colunas que você deseja retornar, que são nome e ano.
+FROM: Indica a tabela filmes de onde os dados serão extraídos.
+ORDER BY ano ASC: Ordena os resultados de forma crescente pelo valor da coluna ano (o ASC é opcional, já que a ordenação padrão é crescente).
+
+'SELECT nome, ano, duracao FROM filmes
+WHERE nome = 'De Volta para o Futuro';'
+
+SELECT: Especifica as colunas que você deseja retornar (nome, ano, duracao).
+FROM: Indica a tabela filmes de onde os dados serão extraídos.
+WHERE: Filtra os resultados para retornar apenas o filme cujo nome é De Volta para o Futuro.
+
+'SELECT nome, ano FROM filmes
+WHERE ano > 2000;'
+
+SELECT: Especifica as colunas que você deseja retornar (nome e ano).
+FROM: Indica a tabela filmes de onde os dados serão extraídos.
+WHERE ano > 2000: Filtra os resultados para retornar apenas os filmes que foram lançados após o ano 2000.
+
+'SELECT nome, ano, duracao FROM filmes
+WHERE duracao > 100 AND duracao < 150
+ORDER BY duracao ASC;'
+
+SELECT: Especifica as colunas que você deseja retornar (nome, ano e duracao).
+FROM: Indica a tabela filmes de onde os dados serão extraídos.
+WHERE duracao > 100 AND duracao < 150: Filtra os filmes para aqueles cuja duração seja maior que 100 minutos e menor que 150 minutos.
+ORDER BY duracao ASC: Ordena os resultados pela coluna duracao em ordem crescente (o ASC é opcional, pois a ordenação padrão é crescente).
+
+'SELECT ano, COUNT(*) AS quantidade_filmes
+FROM filmes
+GROUP BY ano
+ORDER BY quantidade_filmes DESC;'
+
+SELECT ano, COUNT(*) AS quantidade_filmes: Retorna o ano e a contagem de filmes para cada ano. COUNT(*) conta o número de filmes em cada grupo de ano, e AS quantidade_filmes dá um nome à coluna resultante.
+FROM filmes: Indica a tabela filmes de onde os dados serão extraídos.
+GROUP BY ano: Agrupa os resultados por ano, para que a contagem seja realizada para cada ano individualmente.
+ORDER BY quantidade_filmes DESC: Ordena os resultados pela quantidade de filmes em ordem decrescente, mostrando primeiro os anos com mais filmes.
+
+'SELECT PrimeiroNome, UltimoNome FROM atores
+WHERE genero = 'Masculino';'
+
+SELECT PrimeiroNome, UltimoNome: Retorna as colunas PrimeiroNome e UltimoNome dos atores.
+FROM atores: Especifica a tabela atores de onde os dados serão extraídos.
+WHERE genero = 'Masculino': Filtra os resultados para incluir apenas os atores cujo gênero seja masculino.
+
+'SELECT PrimeiroNome, UltimoNome FROM atores
+WHERE genero = 'Feminino'
+ORDER BY PrimeiroNome ASC;' 
+
+SELECT PrimeiroNome, UltimoNome: Retorna as colunas PrimeiroNome e UltimoNome das atrizes.
+
+FROM atores: Indica a tabela atores de onde os dados serão extraídos.
+WHERE genero = 'Feminino': Filtra os resultados para incluir apenas os atores cujo gênero seja feminino.
+
+ORDER BY PrimeiroNome ASC: Ordena os resultados pelo campo PrimeiroNome em ordem crescente (o ASC é opcional, pois a ordenação padrão é crescente).
+
+'SELECT f.nome AS NomeFilme, g.Genero AS Genero
+FROM filmes f
+JOIN FilmesGenero fg ON f.id = fg.IdFilme
+JOIN Generos g ON fg.IdGenero = g.Id;'
+
+SELECT f.nome AS NomeFilme, g.Genero AS Genero: Seleciona o nome do filme da tabela filmes (apelidada como f) e o gênero da tabela Generos (apelidada como g).
+
+O AS é utilizado para dar um nome mais amigável às colunas retornadas.
+FROM filmes f: Especifica a tabela filmes como a tabela principal e dá a ela um alias (f) para simplificar a referência nas junções.
+
+JOIN FilmesGenero fg ON f.id = fg.IdFilme: Realiza uma junção entre a tabela filmes e a tabela FilmesGenero (apelidada como fg) onde os IDs dos filmes correspondem.
+
+JOIN Generos g ON fg.IdGenero = g.Id: Realiza uma junção entre a tabela FilmesGenero e a tabela Generos onde os IDs dos gêneros correspondem.
+
+'SELECT f.nome AS NomeFilme, g.Genero AS Genero
+FROM filmes f
+JOIN FilmesGenero fg ON f.id = fg.IdFilme
+JOIN Generos g ON fg.IdGenero = g.Id
+WHERE g.Genero = 'Mistério';'
+
+SELECT f.nome AS NomeFilme, g.Genero AS Genero: Seleciona o nome do filme da tabela filmes e o gênero da tabela Generos.
+
+FROM filmes f:Indica a tabela filmes como a tabela principal.
+
+JOIN FilmesGenero fg ON f.id = fg.IdFilme: Faz a junção entre filmes e FilmesGenero onde os IDs dos filmes correspondem.
+
+JOIN Generos g ON fg.IdGenero = g.Id: Faz a junção entre FilmesGenero e Generos onde os IDs dos gêneros correspondem.
+
+WHERE g.Genero = 'Mistério': Filtra os resultados para incluir apenas os gêneros que são do tipo "Mistério".
+
+'SELECT f.nome AS NomeFilme, a.PrimeiroNome, a.UltimoNome, ef.Papel
+FROM filmes f
+JOIN ElencoFilme ef ON f.id = ef.IdFilme
+JOIN atores a ON ef.IdAtor = a.id;'
+
+SELECT f.nome AS NomeFilme, a.PrimeiroNome, a.UltimoNome, ef.Papel: Seleciona o nome do filme da tabela filmes, o primeiro e o último nome dos atores, e o papel que desempenham no filme.
+
+FROM filmes f: Especifica a tabela filmes como a tabela principal e a apelida como f.
+
+JOIN ElencoFilme ef ON f.id = ef.IdFilme: Faz a junção entre filmes e ElencoFilme, associando os filmes aos seus elencos.
+
+JOIN atores a ON ef.IdAtor = a.id: Faz a junção entre ElencoFilme e atores, ligando cada ator ao seu respectivo registro.
+
+
